@@ -17,21 +17,28 @@ module Redirectly
       found = match req
 
       if found
-        if found.start_with? '!'
-          code, target = 301, found[1..-1] 
-        else
-          code, target = 302, found
-        end
-        
-        [code, {'Location' => target}, []]
-      
+        redirect_to found
       else
-        [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
+        not_found
       
       end
     end
 
   private
+
+    def redirect_to(target)
+      code = 302
+
+      if target.start_with? '!'
+        code, target = 301, target[1..-1] 
+      end
+
+      [code, {'Location' => target}, []]
+    end
+
+    def not_found
+      [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
+    end
 
     def redirects
       @redirects ||= ini_read(config_path)
