@@ -1,7 +1,6 @@
 require 'cgi'
 require 'rack'
 require 'mustermann'
-require 'addressable'
 
 module Redirectly
   class App
