@@ -49,6 +49,24 @@ describe App do
     end
   end
 
+  context "with a request that contains a query string" do
+    subject { host_get "test.lvh.me" }
+
+    it "forwards the query string to the target" do
+      expect(subject).to be_redirection
+      expect(last_response.location).to eq "https://test.com/"
+    end
+
+    context "when the target already contains a query string" do
+      subject { host_get "query.com", add: "me" }
+
+      it "properly appends the query string from the source to the target" do
+        expect(subject).to be_redirection
+        expect(last_response.location).to eq "https://redir.com?already=have&query=string&add=me"
+      end
+    end
+  end
+
   context "with a target that wants a permanent redirect" do
     subject { host_get "perm.lvh.me" }
 
