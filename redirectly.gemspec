@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.version     = Redirectly::VERSION
   s.date        = Date.today.to_s
   s.summary     = "Redirectly redirect server"
-  s.description = "Redirect server with dynamic URL support"
+  s.description = "Redirect server with dynamic URL and hostname support"
   s.authors     = ["Danny Ben Shitrit"]
   s.email       = 'db@dannyben.com'
   s.files       = Dir['README.md', 'lib/**/*.*']
