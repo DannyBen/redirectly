@@ -21,6 +21,28 @@ $ gem install redirectly
 
 SOON
 
+## Quick start
+
+```shell
+# In an empty directory, create a sample configuration file
+$ redirectly --init
+
+# Start the server
+$ redirectly
+
+# In another terminal, access the server using one of the configured rules
+$ curl -v something.lvh.me:3000
+```
+
+You should receive a redirect header:
+
+```
+# ...
+< HTTP/1.1 302 Found
+< Location: http://it-works.com/something
+# ...
+```
+
 
 ## Usage 
 
@@ -42,6 +64,12 @@ example.org/* = https://other-site.com/
 :sub.lvh.me/* = http://it-works.com/%{sub}
 ```
 
+For additional server options, see:
+
+```shell
+$ redirectly --help
+```
+
 The configuration file is built of `pattern = target` pairs, where:
 
 - `pattern` - is any URL pattern that is supported by [Mustermann][mustermann].
@@ -54,11 +82,6 @@ Notes:
 - If `pattern` includes named arguments (e.g. `example.com/:something`), they
   will be available to the `target` as Ruby string substitution variables
   (e.g. `%{something}`).
-
-
-## Common Patterns
-
-SOON
 
 
 ## Contributing / Support
