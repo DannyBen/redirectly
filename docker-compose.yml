@@ -1,0 +1,8 @@
+services:
+  redirectly:
+    build: .
+    image: dannyben/redirectly
+    ports:
+      - 3000:3000
+    volumes:
+      - ./redirects.ini:/app/redirects.ini

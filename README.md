@@ -19,9 +19,42 @@ $ gem install redirectly
 
 ## Docker Image
 
-SOON
+Redirectly is also available as a [docker image][docker]:
 
-## Quick start
+```shell
+# Pull the image
+$ docker pull dannyben/redirectly
+
+# Run the redirectly command line
+$ docker run --rm -it dannyben/redirectly --help
+
+# Start the server with your local configuration file
+$ docker run --rm -it \
+    -p 3000:3000 \
+    -v $PWD/redirects.ini:/app/redirects.ini \
+    dannyben/redirectly 
+```
+
+### Using with docker-compose
+
+```yaml
+# docker-compose.yml
+services:
+  redirectly:
+    image: dannyben/redirectly
+    ports:
+      - 3000:3000
+    volumes:
+      - ./redirects.ini:/app/redirects.ini
+```
+
+### Using as an alias
+
+```shell
+$ alias redirectly='docker run --rm -it -p 3000:3000 -v $PWD/redirects.ini:/app/redirects.ini dannyben/redirectly'
+```
+
+## Quick Start
 
 ```shell
 # In an empty directory, create a sample configuration file
@@ -36,7 +69,7 @@ $ curl -v something.lvh.me:3000
 
 You should receive a redirect header:
 
-```
+```shell
 # ...
 < HTTP/1.1 302 Found
 < Location: http://it-works.com/something
@@ -94,3 +127,4 @@ to contribute, feel free to [open an issue][issues].
 
 [issues]: https://github.com/DannyBen/redirectly/issues
 [mustermann]: https://github.com/sinatra/mustermann/blob/master/mustermann/README.md
+[docker]: https://hub.docker.com/r/dannyben/redirectly
