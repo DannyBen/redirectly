@@ -1,6 +1,7 @@
 require 'cgi'
 require 'rack'
 require 'mustermann'
+require 'addressable'
 
 module Redirectly
   class App
@@ -59,7 +60,12 @@ module Redirectly
           params.transform_keys! &:to_sym
           params.delete :splat
           params.transform_values! { |v| CGI.escape v }
-          return target % params
+          result = target % params
+          unless req.query_string.empty?
+            glue = result.include?("?") ? "&" : "?"
+            result = "#{result}#{glue}#{req.query_string}"
+          end
+          return result
         end
       end
 

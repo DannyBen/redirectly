@@ -15,10 +15,10 @@ RSpec.configure do |config|
     App.new(config_path)
   end
 
-  def host_get(url)
+  def host_get(url, args = nil)
     host, path = url.split('/', 2)
     path = "/#{path}"
-    get path, nil, { "HTTP_HOST" => host }
+    get path, args, { "HTTP_HOST" => host }
   end
 
   def reset_tmp_dir

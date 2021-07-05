@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rack', '~> 2.2'
   s.add_runtime_dependency 'mustermann', '~> 1.1'
   s.add_runtime_dependency 'puma', '~> 5.3'
+  s.add_runtime_dependency 'addressable', '~> 2.7'
 
   s.metadata = {
     "bug_tracker_uri"   => "https://github.com/DannyBen/redirectly/issues",
