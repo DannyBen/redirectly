@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.13
 
 ENV BUILD_PACKAGES bash curl curl-dev ruby-dev build-base
 ENV RUBY_PACKAGES ruby ruby-etc ruby-io-console libffi-dev zlib-dev
