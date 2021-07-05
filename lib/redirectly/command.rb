@@ -44,6 +44,7 @@ module Redirectly
         *.mygoogle.com/:anything = https://google.com/?q=%{anything}
         example.org/* = https://other-site.com/
         *.old-site.com = !https://permanent.redirect.com
+        :sub.lvh.me/* = http://it-works.com/%{sub}
       TEMPLATE
     end
 

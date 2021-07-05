@@ -22,6 +22,15 @@ describe App do
     end
   end
 
+  context "with a request that uses :args in the domain name" do
+    subject { host_get "google.domain.com" }
+
+    it "redirects and replaces the args in the target" do
+      expect(subject).to be_redirection
+      expect(last_response.location).to eq "https://new-site.com/google"
+    end
+  end
+
   context "with a request that uses wildcards in the path" do
     subject { host_get "test.lvh.me" }
 
