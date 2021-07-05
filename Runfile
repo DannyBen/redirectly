@@ -1,0 +1,22 @@
+require "runfile-tasks"
+require "byebug"
+require "pretty_trace/enable-trim"
+require "lp"
+
+require_relative 'lib/redirectly'
+
+title   "Redirectly Developer Toolbelt"
+summary "Runfile tasks for building the Redirectly gem"
+version Redirectly::VERSION
+
+include Redirectly
+
+RunfileTasks::RubyGems.all 'redirectly'
+RunfileTasks::Testing.rspec
+
+help   "Run interactive console"
+action :console, :c do
+  run "bundle exec bin/console"
+end
+
+require './debug' if File.exist? 'debug.rb'

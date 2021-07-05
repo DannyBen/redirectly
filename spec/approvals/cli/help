@@ -1,0 +1,27 @@
+Start the redirect server
+
+Usage:
+  redirectly [CONFIG --port PORT]
+  redirectly --init
+  redirectly --help | --version
+
+Options:
+  -p --port PORT
+    Listening port [default: 3000]
+
+  -i --init
+    Create a sample config file and exit
+
+  -h --help
+    Show this help
+
+  --version
+    Show version number
+
+Parameters:
+  CONFIG
+    Path to config file [default: redirects.ini]
+
+Examples:
+  redirectly --init
+  redirectly config.ini

@@ -1,0 +1,2 @@
+ERROR: ArgumentError
+Cannot find config file no-such-file.ini

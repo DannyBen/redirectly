@@ -1,0 +1,9 @@
+*.gem
+/cache
+/coverage
+/debug.rb
+/dev
+/Gemfile.lock
+/gems
+/tmp
+/redirects.ini
