@@ -26,6 +26,28 @@ describe Command do
     end
   end
 
+  context "with --init" do
+    before { reset_tmp_dir }
+
+    it "creates a template redirects.ini file" do
+      Dir.chdir tmp_dir do
+        expect { subject.run %w[--init] }.to output_approval("cli/init")
+        expect(File).to exist("redirects.ini")
+        expect(File.read "redirects.ini").to match_approval("cli/init-template")
+      end
+    end
+
+    context "when redirects.ini already exists" do
+      it "does not overwrite the file" do
+        Dir.chdir tmp_dir do
+          File.write "redirects.ini", "dummy = sample"
+          expect { subject.run %w[--init] }.to raise_approval("cli/init-error")
+          expect(File.read "redirects.ini").to eq "dummy = sample"
+        end
+      end
+    end
+  end
+
   context "with a CONFIG argument" do
     it "starts the server with the specified path" do
       expect(Rack::Server).to receive(:start).with(default_args)

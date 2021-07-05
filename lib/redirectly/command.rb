@@ -30,6 +30,21 @@ module Redirectly
   private
 
     def init_file
+      if File.exist? config_path
+        raise ArgumentError, "#{config_path} already exists"
+      else
+        File.write config_path, template
+        say "Initialized #{config_path}"
+      end
+    end
+
+    def template
+      <<~TEMPLATE
+        example.com = https://other-site.com/
+        *.mygoogle.com/:anything = https://google.com/?q=%{anything}
+        example.org/* = https://other-site.com/
+        *.old-site.com = !https://permanent.redirect.com
+      TEMPLATE
     end
 
     def start_server

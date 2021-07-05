@@ -20,4 +20,16 @@ RSpec.configure do |config|
     path = "/#{path}"
     get path, nil, { "HTTP_HOST" => host }
   end
+
+  def reset_tmp_dir
+    if Dir.exist? tmp_dir
+      Dir["#{tmp_dir}/**/*"].each { |file| File.delete file if File.file? file }
+    else
+      Dir.mkdir tmp_dir
+    end
+  end
+
+  def tmp_dir
+    File.expand_path 'tmp', __dir__
+  end
 end

@@ -1,0 +1,4 @@
+example.com = https://other-site.com/
+*.mygoogle.com/:anything = https://google.com/?q=%{anything}
+example.org/* = https://other-site.com/
+*.old-site.com = !https://permanent.redirect.com
