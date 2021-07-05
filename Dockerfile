@@ -12,7 +12,7 @@ RUN echo 'gem: --no-document' > /etc/gemrc && \
 
 RUN bundle config --global silence_root_warning 1
 
-RUN gem install redirectly -v 0.1.0
+RUN gem install redirectly -v 0.1.1
 
 WORKDIR /app
 
