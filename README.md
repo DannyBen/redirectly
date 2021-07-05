@@ -24,7 +24,36 @@ SOON
 
 ## Usage 
 
-SOON
+Redirectly requires a simple INI file with redirect configuration details.
+
+You can create a sample configuration file by running:
+
+```shell
+$ redirectly --init
+```
+
+This will create a sample `redirects.ini` file:
+
+```ini
+example.com = https://other-site.com/
+*.mygoogle.com/:anything = https://google.com/?q=%{anything}
+example.org/* = https://other-site.com/
+*.old-site.com = !https://permanent.redirect.com
+:sub.lvh.me/* = http://it-works.com/%{sub}
+```
+
+The configuration file is built of `pattern = target` pairs, where:
+
+- `pattern` - is any URL pattern that is supported by [Mustermann][mustermann].
+- `target` - is the target URL to redirect to.
+
+Notes:
+
+- If `target` starts with an exclamation mark, it will be a permanent
+  redirect (301), otherwise it will be a temporary redirect (302).
+- If `pattern` includes named arguments (e.g. `example.com/:something`), they
+  will be available to the target as Ruby string substitution variables
+  (e.g. `%{something}`).
 
 
 ## Contributing / Support
@@ -36,3 +65,4 @@ to contribute, feel free to [open an issue][issues].
 ---
 
 [issues]: https://github.com/DannyBen/redirectly/issues
+[mustermann]: https://github.com/sinatra/mustermann/blob/master/mustermann/README.md
