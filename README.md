@@ -17,7 +17,7 @@ defining dynamic redirects.
 $ gem install redirectly
 ```
 
-## Docker image
+## Docker Image
 
 SOON
 
@@ -52,8 +52,13 @@ Notes:
 - If `target` starts with an exclamation mark, it will be a permanent
   redirect (301), otherwise it will be a temporary redirect (302).
 - If `pattern` includes named arguments (e.g. `example.com/:something`), they
-  will be available to the target as Ruby string substitution variables
+  will be available to the `target` as Ruby string substitution variables
   (e.g. `%{something}`).
+
+
+## Common Patterns
+
+SOON
 
 
 ## Contributing / Support
