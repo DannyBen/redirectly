@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.executables = ["redirectly"]
   s.homepage    = 'https://github.com/dannyben/redirectly'
   s.license     = 'MIT'
-  s.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = ">= 2.6.0"
 
   s.add_runtime_dependency 'mister_bin', '~> 0.7'
   s.add_runtime_dependency 'rack', '~> 2.2'
