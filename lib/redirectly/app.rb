@@ -29,14 +29,15 @@ module Redirectly
       code = 302
 
       if target.start_with? '!'
-        code, target = 301, target[1..-1] 
+        code = 301
+        target = target[1..]
       end
 
-      [code, {'Location' => target}, []]
+      [code, { 'Location' => target }, []]
     end
 
     def not_found
-      [404, {'Content-Type' => 'text/plain'}, ['Not Found']]
+      [404, { 'Content-Type' => 'text/plain' }, ['Not Found']]
     end
 
     def redirects
@@ -44,8 +45,8 @@ module Redirectly
     end
 
     def ini_read(path)
-      content = File.readlines(path, chomp:true).reject { |line| line.comment? }
-      content.map { |line| line.split(/\s*=\s*/, 2) }.to_h
+      content = File.readlines(path, chomp: true).reject(&:comment?)
+      content.to_h { |line| line.split(/\s*=\s*/, 2) }
     end
 
     def match
@@ -58,18 +59,18 @@ module Redirectly
     end
 
     def find_target(pattern, target)
-      params = get_params pattern, target
+      params = get_params pattern
       params ? composite_target(target, params) : nil
     end
 
-    def get_params(pattern, target)
-      pattern = "#{pattern}/" unless pattern.include? "/" 
+    def get_params(pattern)
+      pattern = "#{pattern}/" unless pattern.include? '/'
       requested = "#{req.host}#{req.path}"
       matcher = Mustermann.new pattern
       params = matcher.params requested
-      
-      if params      
-        params.transform_keys! &:to_sym
+
+      if params
+        params.transform_keys!(&:to_sym)
         params.delete :splat
         params.transform_values! { |v| CGI.escape v }
       end
@@ -80,7 +81,7 @@ module Redirectly
     def composite_target(target, params)
       result = target % params
       unless req.query_string.empty?
-        glue = result.include?("?") ? "&" : "?"
+        glue = result.include?('?') ? '&' : '?'
         result = "#{result}#{glue}#{req.query_string}"
       end
       result

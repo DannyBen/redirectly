@@ -10,7 +10,7 @@ include Redirectly
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
-  
+
   def app
     App.new(config_path)
   end
@@ -18,7 +18,7 @@ RSpec.configure do |config|
   def host_get(url, args = nil)
     host, path = url.split('/', 2)
     path = "/#{path}"
-    get path, args, { "HTTP_HOST" => host }
+    get path, args, { 'HTTP_HOST' => host }
   end
 
   def reset_tmp_dir
