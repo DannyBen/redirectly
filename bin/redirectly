@@ -16,7 +16,7 @@ rescue => e
     puts e.backtrace.reverse
     say ''
   end
-  say "!undred!ERROR: #{e.class}"
+  say "ru`ERROR: #{e.class}`"
   say e.message
   exit 1
 end
