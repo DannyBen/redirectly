@@ -1,6 +1,6 @@
-require "byebug"
-require "pretty_trace/enable-trim"
+require 'debug'
+require 'pretty_trace/enable-trim'
 
-title   "Redirectly Developer Toolbelt"
+title 'Redirectly Developer Toolbelt'
 import_gem 'runfile-tasks/gem'
 import 'debug'
