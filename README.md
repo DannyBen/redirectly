@@ -64,7 +64,7 @@ $ redirectly --init
 $ redirectly
 
 # In another terminal, access the server using one of the configured rules
-$ curl -v something.lvh.me:3000
+$ curl -v something.localhost:3000
 ```
 
 You should receive a redirect header:
@@ -94,7 +94,7 @@ example.com = https://other-site.com/
 *.mygoogle.com/:anything = https://google.com/?q=%{anything}
 example.org/* = https://other-site.com/
 *.old-site.com = !https://permanent.redirect.com
-:sub.lvh.me/* = http://it-works.com/%{sub}
+:sub.app.localhost/* = http://it-works.com/%{sub}
 ```
 
 For additional server options, see:

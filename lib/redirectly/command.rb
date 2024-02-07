@@ -1,5 +1,6 @@
 require 'colsole'
 require 'mister_bin'
+require 'rackup'
 
 module Redirectly
   class Command < MisterBin::Command
@@ -42,14 +43,14 @@ module Redirectly
         *.mygoogle.com/:anything = https://google.com/?q=%{anything}
         example.org/* = https://other-site.com/
         *.old-site.com = !https://permanent.redirect.com
-        :sub.lvh.me/* = http://it-works.com/%{sub}
+        :sub.app.localhost/* = http://it-works.com/%{sub}
       TEMPLATE
     end
 
     def start_server
       raise ArgumentError, "Cannot find config file #{config_path}" unless File.exist? config_path
 
-      Rack::Server.start(app: app, Port: port, environment: 'production')
+      Rackup::Server.start(app: app, Port: port, environment: 'production')
     end
 
     def app
