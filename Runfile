@@ -1,7 +1,8 @@
 require 'debug'
+require 'redirectly/version'
 require 'pretty_trace/enable-trim'
 
 title 'Redirectly Developer Toolbelt'
 import_gem 'runfile-tasks/gem'
-import_gem 'runfile-tasks/docker'
+import_gem 'runfile-tasks/docker', image: 'dannyben/redirectly', version: Redirectly::VERSION
 import 'debug'
