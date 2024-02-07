@@ -14,7 +14,7 @@ describe App do
   end
 
   context 'with a request that uses :args' do
-    subject { host_get 'search.lvh.me/hello%20world&+' }
+    subject { host_get 'find.localhost/hello%20world&+' }
 
     it 'redirects and replaces the args in the target' do
       expect(subject).to be_redirection
@@ -32,7 +32,7 @@ describe App do
   end
 
   context 'with a request that uses wildcards in the path' do
-    subject { host_get 'test.lvh.me' }
+    subject { host_get 'test.localhost' }
 
     it 'redirects' do
       expect(subject).to be_redirection
@@ -41,7 +41,7 @@ describe App do
   end
 
   context 'with a request that uses wildcards in the domain' do
-    subject { host_get 'whatever.lvh.me' }
+    subject { host_get 'whatever.localhost' }
 
     it 'redirects' do
       expect(subject).to be_redirection
@@ -50,7 +50,7 @@ describe App do
   end
 
   context 'with a request that contains a query string' do
-    subject { host_get 'test.lvh.me' }
+    subject { host_get 'test.localhost' }
 
     it 'forwards the query string to the target' do
       expect(subject).to be_redirection
@@ -68,7 +68,7 @@ describe App do
   end
 
   context 'with a target that wants a permanent redirect' do
-    subject { host_get 'perm.lvh.me' }
+    subject { host_get 'perm.localhost' }
 
     it 'redirects with a permanent status' do
       expect(subject).to be_redirection
