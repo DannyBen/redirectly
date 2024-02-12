@@ -45,7 +45,7 @@ module Redirectly
     end
 
     def ini_read(path)
-      content = File.readlines(path, chomp: true).reject(&:comment?)
+      content = File.readlines(path, chomp: true).reject(&:comment?).reject(&:empty?)
       content.to_h { |line| line.split(/\s*=\s*/, 2) }
     end
 
@@ -72,7 +72,6 @@ module Redirectly
       if params
         params.transform_keys!(&:to_sym)
         params.delete :splat
-        params.transform_values! { |v| CGI.escape v }
       end
 
       params
