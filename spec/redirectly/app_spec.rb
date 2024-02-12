@@ -67,6 +67,15 @@ describe App do
     end
   end
 
+  context 'with a request that uses a named splat' do
+    subject { host_get 'anything.splat.localhost/1/2/3/4?5=6' }
+
+    it 'redirects' do
+      expect(subject).to be_redirection
+      expect(last_response.location).to eq 'https://example.com/1/2/3/4?5=6'
+    end
+  end
+
   context 'with a target that wants a permanent redirect' do
     subject { host_get 'perm.localhost' }
 
