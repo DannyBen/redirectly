@@ -1,4 +1,4 @@
-require 'byebug' if ENV['BYEBUG']
+require 'debug' if ENV['DEBUGGER']
 
 require 'redirectly/refinements'
 require 'redirectly/version'

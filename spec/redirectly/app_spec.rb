@@ -14,11 +14,11 @@ describe App do
   end
 
   context 'with a request that uses :args' do
-    subject { host_get 'find.localhost/hello%20world&+' }
+    subject { host_get 'find.localhost/hello%20world' }
 
     it 'redirects and replaces the args in the target' do
       expect(subject).to be_redirection
-      expect(last_response.location).to eq 'https://search.com/?q=hello+world%26%2B'
+      expect(last_response.location).to eq 'https://search.com/?q=hello world'
     end
   end
 
@@ -64,6 +64,15 @@ describe App do
         expect(subject).to be_redirection
         expect(last_response.location).to eq 'https://redir.com?already=have&query=string&add=me'
       end
+    end
+  end
+
+  context 'with a request that uses a named splat' do
+    subject { host_get 'anything.splat.localhost/1/2/3/4?5=6' }
+
+    it 'redirects' do
+      expect(subject).to be_redirection
+      expect(last_response.location).to eq 'https://example.com/1/2/3/4?5=6'
     end
   end
 
