@@ -10,7 +10,7 @@ import 'debug'
 help 'Generate changelog and append some manual entries'
 action :changelog do
   # https://github.com/dannyben/git-changelog
-  log = `git changelog --reverse`
+  log = `git changelog --reverse --color off`
   log.gsub! "- Allow using named splat", "- BREAKING: Remove URI encoding of arguments in target URL\n\\0"
   File.write 'CHANGELOG.md', log
   say 'Saved g`CHANGELOG.md`'
