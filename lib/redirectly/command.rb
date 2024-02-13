@@ -44,6 +44,7 @@ module Redirectly
         example.org/* = https://other-site.com/
         *.old-site.com = !https://permanent.redirect.com
         :sub.app.localhost/* = http://it-works.com/%{sub}
+        (*)old-domain.com/*rest = http://new-domain.com/%{rest}
       TEMPLATE
     end
 
