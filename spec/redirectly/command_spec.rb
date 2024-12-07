@@ -9,7 +9,7 @@ describe Command do
   context 'without arguments' do
     it 'starts the server with redirects.yml' do
       Dir.chdir 'spec/fixtures' do
-        expect(Rack::Server).to receive(:start).with(default_args)
+        expect(Rackup::Server).to receive(:start).with(default_args)
         subject.run
       end
     end
@@ -51,7 +51,7 @@ describe Command do
 
   context 'with a CONFIG argument' do
     it 'starts the server with the specified path' do
-      expect(Rack::Server).to receive(:start).with(default_args)
+      expect(Rackup::Server).to receive(:start).with(default_args)
       subject.run %w[spec/fixtures/redirects.ini]
     end
   end
@@ -60,7 +60,7 @@ describe Command do
     let(:args) { { app: Redirectly::App, Port: 1234, environment: 'production' } }
 
     it 'starts the server and listens on the requested port' do
-      expect(Rack::Server).to receive(:start).with(args)
+      expect(Rackup::Server).to receive(:start).with(args)
       subject.run %w[spec/fixtures/redirects.ini --port 1234]
     end
   end
