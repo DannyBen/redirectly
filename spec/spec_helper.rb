@@ -1,5 +1,11 @@
 require 'simplecov'
-SimpleCov.start { enable_coverage :branch }
+
+unless ENV['NOCOV']
+  SimpleCov.start do
+    enable_coverage :branch if ENV['BRANCH_COV']
+    coverage_dir 'spec/coverage'
+  end
+end
 
 require 'bundler'
 Bundler.require :default, :development
