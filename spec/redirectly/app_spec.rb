@@ -86,6 +86,29 @@ describe App do
     end
   end
 
+  context 'with a target that wants a proxy' do
+    subject { host_get url }
+
+    let(:url) { 'proxy.localhost/path?query=string' }
+    let(:parsed_response) { JSON.parse last_response.body }
+
+    it 'reads and serves the content from the target' do
+      expect(subject).to be_successful
+      expect(last_response.content_type).to eq 'application/json'
+      expect(parsed_response['path']).to eq '/basepath/path?query=string'
+    end
+
+    context 'when the target raises an error' do
+      let(:url) { 'invalid-proxy.localhost' }
+
+      it 'returns 502 Bad Gateway' do
+        expect(subject).to_not be_successful
+        expect(last_response.status).to eq 502
+        expect(last_response.body).to include 'Bad Gateway'
+      end
+    end
+  end
+
   context 'with an unknown request' do
     subject { host_get 'no.such.pattern/here' }
 

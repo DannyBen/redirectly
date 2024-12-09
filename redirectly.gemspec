@@ -13,13 +13,14 @@ Gem::Specification.new do |s|
   s.executables = ['redirectly']
   s.homepage    = 'https://github.com/dannyben/redirectly'
   s.license     = 'MIT'
-  s.required_ruby_version = '>= 3.0'
 
-  s.add_runtime_dependency 'mister_bin', '~> 0.7'
-  s.add_runtime_dependency 'mustermann', '>= 1.1', '< 4'
-  s.add_runtime_dependency 'puma', '>= 5.3', '< 7'
-  s.add_runtime_dependency 'rack', '~> 3.0'
-  s.add_runtime_dependency 'rackup', '~> 2.1'
+  s.required_ruby_version = '>= 3.1'
+
+  s.add_dependency 'mister_bin', '~> 0.7'
+  s.add_dependency 'mustermann', '>= 1.1', '< 4'
+  s.add_dependency 'puma', '>= 5.3', '< 7'
+  s.add_dependency 'rack', '~> 3.0'
+  s.add_dependency 'rackup', '~> 2.1'
 
   s.metadata = {
     'bug_tracker_uri'       => 'https://github.com/DannyBen/redirectly/issues',

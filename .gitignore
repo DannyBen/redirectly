@@ -1,10 +1,10 @@
 *.gem
 /cache
-/coverage
 /debug.runfile
 /dev
 /Gemfile.lock
 /gems
 /redirects.ini
+/spec/coverage
 /spec/tmp
 /tmp

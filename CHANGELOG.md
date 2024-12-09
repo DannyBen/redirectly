@@ -1,11 +1,17 @@
-Change Log
+Changelog
 ========================================
+
+Untagged - Latest
+----------------------------------------
+
+- Add support for proxy mode URLs
+- Drop support for Ruby 3.0
+
 
 v0.3.0 - 2024-02-13
 ----------------------------------------
 
 - Build docker images automatically
-- BREAKING: Remove URI encoding of arguments in target URL
 - Allow using named splat (`*name`)
 - Add redirectly:edge docker image
 - Update `--init` template to include a splat redirect
@@ -18,12 +24,13 @@ v0.2.0 - 2024-02-07
 - Upgrade rack to 3.0
 
 
+<!-- break v0.1.2 -->
 v0.1.2 - 2023-03-19
 ----------------------------------------
 
 - Forward query strings from source to target
 - Drop support for Ruby < 2.6
-- Upgade dependencies
+- Upgrade dependencies
 
 
 v0.1.1 - 2021-07-05
@@ -37,5 +44,3 @@ v0.0.0 - 2021-07-05
 
 - Initial version
 - Implement --init
-
-

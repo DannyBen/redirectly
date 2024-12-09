@@ -1,6 +1,8 @@
 require 'cgi'
-require 'rack'
 require 'mustermann'
+require 'net/http'
+require 'rack'
+require 'uri'
 
 module Redirectly
   class App
@@ -17,13 +19,21 @@ module Redirectly
       found = match
 
       if found
-        redirect_to found
+        handle_target found
       else
         not_found
       end
     end
 
   private
+
+    def handle_target(target)
+      if target.start_with? '@'
+        proxy_to target[1..]
+      else
+        redirect_to target
+      end
+    end
 
     def redirect_to(target)
       code = 302
@@ -34,6 +44,18 @@ module Redirectly
       end
 
       [code, { 'location' => target }, []]
+    end
+
+    def proxy_to(target)
+      uri = URI target
+      uri.query = req.query_string unless req.query_string.empty?
+
+      response = Net::HTTP.get_response uri
+
+      headers = { 'Content-Type' => response['Content-Type'] }
+      [response.code.to_i, headers, [response.body]]
+    rescue => e
+      [502, { 'Content-Type' => 'text/plain' }, ["Bad Gateway: #{e.message}"]]
     end
 
     def not_found

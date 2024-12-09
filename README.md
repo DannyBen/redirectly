@@ -95,6 +95,7 @@ example.com = https://other-site.com/
 example.org/* = https://other-site.com/
 *.old-site.com = !https://permanent.redirect.com
 :sub.app.localhost/* = http://it-works.com/%{sub}
+proxy.localhost/*rest = @https://proxy.target.com/base/*rest
 (*)old-domain.com/*rest = http://new-domain.com/%{rest}
 ```
 
@@ -109,13 +110,23 @@ The configuration file is built of `pattern = target` pairs, where:
 - `pattern` - is any URL pattern that is supported by [Mustermann][mustermann].
 - `target` - is the target URL to redirect to.
 
-Notes:
+### Notes
 
-- If `target` starts with an exclamation mark, it will be a permanent
-  redirect (301), otherwise it will be a temporary redirect (302).
-- If `pattern` includes named arguments (e.g. `example.com/:something`), they
-  will be available to the `target` as Ruby string substitution variables
-  (e.g. `%{something}`).
+#### Redirects
+
+If the target starts with `!`, it will perform a permanent redirect (301).
+Otherwise, it will perform a temporary redirect (302) by default.
+
+#### Proxying
+
+If the target starts with `@`, the content will be proxied instead of being
+redirected.
+
+#### Named Arguments in Patterns
+
+If the pattern includes named arguments (e.g., example.com/**:something**),
+those arguments will be available as Ruby string substitution variables in the
+target (e.g., **%{something}**).
 
 
 ## Contributing / Support
