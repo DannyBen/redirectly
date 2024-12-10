@@ -8,12 +8,13 @@ module Redirectly
     help 'Start the redirect server'
     version Redirectly::VERSION
 
-    usage 'redirectly [CONFIG --port PORT]'
+    usage 'redirectly [CONFIG --port PORT --reload]'
     usage 'redirectly --init'
     usage 'redirectly -h | --help | --version'
 
     option '-p --port PORT', 'Listening port [default: 3000]'
     option '-i --init', 'Create a sample config file and exit'
+    option '-r --reload', 'Read the INI file with every request'
 
     param 'CONFIG', 'Path to config file [default: redirects.ini]'
 
@@ -52,6 +53,7 @@ module Redirectly
     def start_server
       raise ArgumentError, "Cannot find config file #{config_path}" unless File.exist? config_path
 
+      ENV['REDIRECTLY_RELOAD'] = '1' if args['--reload']
       Rackup::Server.start(app: app, Port: port, environment: 'production')
     end
 

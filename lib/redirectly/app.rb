@@ -63,7 +63,11 @@ module Redirectly
     end
 
     def redirects
-      @redirects ||= ini_read(config_path)
+      if ENV['REDIRECTLY_RELOAD']
+        ini_read config_path
+      else
+        @redirects ||= ini_read(config_path)
+      end
     end
 
     def ini_read(path)

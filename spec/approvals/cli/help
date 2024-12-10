@@ -1,7 +1,7 @@
 Start the redirect server
 
 Usage:
-  redirectly [CONFIG --port PORT]
+  redirectly [CONFIG --port PORT --reload]
   redirectly --init
   redirectly -h | --help | --version
 
@@ -11,6 +11,9 @@ Options:
 
   -i --init
     Create a sample config file and exit
+
+  -r --reload
+    Read the INI file with every request
 
   -h --help
     Show this help

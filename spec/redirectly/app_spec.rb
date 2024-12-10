@@ -102,7 +102,7 @@ describe App do
       let(:url) { 'invalid-proxy.localhost' }
 
       it 'returns 502 Bad Gateway' do
-        expect(subject).to_not be_successful
+        expect(subject).not_to be_successful
         expect(last_response.status).to eq 502
         expect(last_response.body).to include 'Bad Gateway'
       end
@@ -114,6 +114,18 @@ describe App do
 
     it 'responds with a 404' do
       expect(subject).to be_not_found
+    end
+  end
+
+  context 'when env var REDIRECTLY_RELOAD is set' do
+    let(:app) { Redirectly::App.new config_path }
+
+    before { ENV['REDIRECTLY_RELOAD'] = '1' }
+    after { ENV['REDIRECTLY_RELOAD'] = nil }
+
+    it 'reloads the INI file with each request' do
+      expect(app).to receive(:ini_read).twice.and_call_original
+      2.times { app.call(Rack::MockRequest.env_for('http://test.localhost/')) }
     end
   end
 end
