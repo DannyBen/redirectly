@@ -64,4 +64,14 @@ describe Command do
       subject.run %w[spec/fixtures/redirects.ini --port 1234]
     end
   end
+
+  context 'with --reload' do
+    before { ENV['REDIRECTLY_RELOAD'] = nil }
+
+    it 'starts the server and listens on the requested port' do
+      expect(Rackup::Server).to receive(:start).with(default_args)
+      subject.run %w[spec/fixtures/redirects.ini --reload]
+      expect(ENV['REDIRECTLY_RELOAD']).not_to be_nil
+    end
+  end
 end
