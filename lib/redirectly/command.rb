@@ -18,8 +18,10 @@ module Redirectly
 
     param 'CONFIG', 'Path to config file [default: redirects.ini]'
 
+    environment 'REDIRECTLY_RELOAD', 'Set to a non empty value in order to read the INI file with every request (same as --reload)'
+
     example 'redirectly --init'
-    example 'redirectly config.ini'
+    example 'redirectly config.ini --port 4000 --reload'
 
     attr_reader :config_path, :port
 
