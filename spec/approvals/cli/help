@@ -3,7 +3,7 @@ Start the redirect server
 Usage:
   redirectly [CONFIG --port PORT]
   redirectly --init
-  redirectly --help | --version
+  redirectly -h | --help | --version
 
 Options:
   -p --port PORT

@@ -10,7 +10,7 @@ module Redirectly
 
     usage 'redirectly [CONFIG --port PORT]'
     usage 'redirectly --init'
-    usage 'redirectly --help | --version'
+    usage 'redirectly -h | --help | --version'
 
     option '-p --port PORT', 'Listening port [default: 3000]'
     option '-i --init', 'Create a sample config file and exit'
