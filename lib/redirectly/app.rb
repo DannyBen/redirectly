@@ -16,7 +16,7 @@ module Redirectly
 
     def call(env)
       @req = Rack::Request.new env
-      found = match
+      found = find_match
 
       if found
         handle_target found
@@ -28,7 +28,9 @@ module Redirectly
   private
 
     def handle_target(target)
-      if target.start_with? '@'
+      if target.start_with? ':'
+        run_internal_command target[1..]
+      elsif target.start_with? '@'
         proxy_to target[1..]
       else
         redirect_to target
@@ -58,6 +60,13 @@ module Redirectly
       [502, { 'Content-Type' => 'text/plain' }, ["Bad Gateway: #{e.message}"]]
     end
 
+    def run_internal_command(target)
+      case target.to_sym
+      when :reload then reload_ini
+      else not_found
+      end
+    end
+
     def not_found
       [404, { 'content-type' => 'text/plain' }, ['Not Found']]
     end
@@ -70,12 +79,17 @@ module Redirectly
       end
     end
 
+    def reload_ini
+      @redirects = nil
+      [200, { 'content-type' => 'text/plain' }, ['OK (:reload)']]
+    end
+
     def ini_read(path)
       content = File.readlines(path, chomp: true).reject(&:comment?).reject(&:empty?)
       content.to_h { |line| line.split(/\s*=\s*/, 2) }
     end
 
-    def match
+    def find_match
       redirects.each do |pattern, target|
         found = find_target pattern, target
         return found if found

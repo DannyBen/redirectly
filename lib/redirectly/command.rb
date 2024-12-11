@@ -18,7 +18,8 @@ module Redirectly
 
     param 'CONFIG', 'Path to config file [default: redirects.ini]'
 
-    environment 'REDIRECTLY_RELOAD', 'Set to a non empty value in order to read the INI file with every request (same as --reload)'
+    environment 'REDIRECTLY_RELOAD',
+      'Set to a non empty value in order to read the INI file with every request (same as --reload)'
 
     example 'redirectly --init'
     example 'redirectly config.ini --port 4000 --reload'
@@ -48,6 +49,7 @@ module Redirectly
         *.old-site.com = !https://permanent.redirect.com
         :sub.app.localhost/* = http://it-works.com/%{sub}
         proxy.localhost/*rest = @https://proxy.target.com/base/*rest
+        internal.localhost/reload = :reload
         (*)old-domain.com/*rest = http://new-domain.com/%{rest}
       TEMPLATE
     end

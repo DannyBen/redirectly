@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe App do
   let(:config_path) { 'spec/fixtures/redirects.ini' }
 
@@ -106,6 +104,23 @@ describe App do
         expect(last_response.status).to eq 502
         expect(last_response.body).to include 'Bad Gateway'
       end
+    end
+  end
+
+  context 'with an internal :reload target' do
+    subject { host_get 'reload.localhost' }
+
+    it 'reloads the INI file' do
+      expect(subject).to be_successful
+      expect(last_response.body).to eq 'OK (:reload)'
+    end
+  end
+
+  context 'with an unknown internal command target' do
+    subject { host_get 'invalid-command.localhost' }
+
+    it 'responds with a 404' do
+      expect(subject).to be_not_found
     end
   end
 

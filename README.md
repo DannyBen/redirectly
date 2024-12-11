@@ -96,6 +96,7 @@ example.org/* = https://other-site.com/
 *.old-site.com = !https://permanent.redirect.com
 :sub.app.localhost/* = http://it-works.com/%{sub}
 proxy.localhost/*rest = @https://proxy.target.com/base/*rest
+internal.localhost/reload = :reload
 (*)old-domain.com/*rest = http://new-domain.com/%{rest}
 ```
 
@@ -110,24 +111,44 @@ The configuration file is built of `pattern = target` pairs, where:
 - `pattern` - is any URL pattern that is supported by [Mustermann][mustermann].
 - `target` - is the target URL to redirect to.
 
-### Notes
+### Special INI Notation
 
-#### Redirects
+#### Redirect type
 
-If the target starts with `!`, it will perform a permanent redirect (301).
-Otherwise, it will perform a temporary redirect (302) by default.
+If the target starts with `!`, a permanent redirect (301) will be performed.  
+If it does not, a temporary redirect (302) will be performed by default:
+
+```ini
+test.localhost/temporary = http://example.com
+test.localhost/permanent = !http://example.com
+```
 
 #### Proxying
 
 If the target starts with `@`, the content will be proxied instead of being
-redirected.
+redirected:
 
-#### Named Arguments in Patterns
+```ini
+test.localhost = @http://example.com
+```
 
-If the pattern includes named arguments (e.g., example.com/**:something**),
-those arguments will be available as Ruby string substitution variables in the
-target (e.g., **%{something}**).
+#### Named arguments
 
+Patterns that include strings starting with a colon `:` will expose those
+strings as Ruby substitution variables in the target:
+
+```ini
+test.localhost/:anything = http://example.com/path/%{anything}
+```
+
+#### Splats
+
+You can use a splat `*` or a named splat `*name` in the pattern.  
+Named splats will also be exposed as Ruby substitution variables in the target:
+
+```ini
+(*)test.localhost/*rest = http://example.com/%{rest}
+```
 
 ## Contributing / Support
 
