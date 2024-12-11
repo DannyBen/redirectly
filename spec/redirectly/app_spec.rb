@@ -107,6 +107,23 @@ describe App do
     end
   end
 
+  context 'with an internal :reload target' do
+    subject { host_get 'reload.localhost' }
+
+    it 'reloads the INI file' do
+      expect(subject).to be_successful
+      expect(last_response.body).to eq 'OK (:reload)'
+    end
+  end
+
+  context 'with an unknown internal command target' do
+    subject { host_get 'invalid-command.localhost' }
+
+    it 'responds with a 404' do
+      expect(subject).to be_not_found
+    end
+  end
+
   context 'with an unknown request' do
     subject { host_get 'no.such.pattern/here' }
 

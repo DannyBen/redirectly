@@ -48,6 +48,7 @@ module Redirectly
         *.old-site.com = !https://permanent.redirect.com
         :sub.app.localhost/* = http://it-works.com/%{sub}
         proxy.localhost/*rest = @https://proxy.target.com/base/*rest
+        internal.localhost/reload = :reload
         (*)old-domain.com/*rest = http://new-domain.com/%{rest}
       TEMPLATE
     end
