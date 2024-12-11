@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe App do
   let(:config_path) { 'spec/fixtures/redirects.ini' }
 

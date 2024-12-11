@@ -16,7 +16,7 @@ module Redirectly
 
     def call(env)
       @req = Rack::Request.new env
-      found = match
+      found = find_match
 
       if found
         handle_target found
@@ -75,7 +75,7 @@ module Redirectly
       content.to_h { |line| line.split(/\s*=\s*/, 2) }
     end
 
-    def match
+    def find_match
       redirects.each do |pattern, target|
         found = find_target pattern, target
         return found if found

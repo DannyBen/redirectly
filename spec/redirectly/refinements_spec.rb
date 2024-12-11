@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 describe Refinements do
   using described_class
 

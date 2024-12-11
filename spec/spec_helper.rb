@@ -14,6 +14,8 @@ require 'redirectly/cli'
 
 include Redirectly
 
+ENV['REDIRECTLY_RELOAD'] = nil
+
 RSpec.configure do |config|
   config.include Rack::Test::Methods
 
