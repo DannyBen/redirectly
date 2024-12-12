@@ -85,7 +85,7 @@ module Redirectly
     end
 
     def ini_read(path)
-      content = File.readlines(path, chomp: true).reject(&:comment?).reject(&:empty?)
+      content = File.readlines(path, chomp: true).reject(&:ignored?)
       content.to_h { |line| line.split(/\s*=\s*/, 2) }
     end
 
