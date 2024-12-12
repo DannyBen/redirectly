@@ -10,7 +10,7 @@ module Redirectly
       end
 
       def section?
-        match?(/^\[.+\]$/)
+        match?(/^\[.+\]\s*$/)
       end
     end
   end
