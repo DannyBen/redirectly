@@ -1,5 +1,7 @@
 # Redirectly - Redirect server with dynamic URL and hostname support
 
+![repocard](https://repocard.dannyben.com/svg/redirectly.svg)
+
 Redirectly is a simple URL redirect server that uses a simple INI file for 
 defining dynamic redirects.
 
